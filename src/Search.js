@@ -15,17 +15,17 @@ class Search extends Component {
   render() {
     const { query } = this.state
     const { books } = this.props
-    const showingBooks = (query === '') ? books :
 
+    const searchedBooks =   books.filter(book => {
+      if (book.title.toLowerCase().includes(query.toLowerCase()))
+        return book;
+    });
 
-      books.filter(book => {
-        if (book.title.toLowerCase().includes(query.toLowerCase()))
-          return book;
-      });
+    const showingBooks = (query === '') ? books : searchedBooks();
 
     return (<div className="search-books">
       <div className="search-books-bar">
-        <Link to="/home" onClick="back" ><button className="close-search" >Close</button></Link>
+        <Link to="/" onClick="back" ><button className="close-search" >Close</button></Link>
         <div className="search-books-input-wrapper">
           {/*
                       NOTES: The search from BooksAPI is limited to a particular set of search terms.

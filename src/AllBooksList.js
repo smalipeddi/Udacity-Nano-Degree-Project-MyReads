@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI'
 
 class AllBooksList extends Component {
 
@@ -12,8 +13,7 @@ class AllBooksList extends Component {
         }
     }
 
-    handleChange = (e) => {
-        console.log(e.target.value);
+    updateBooks = (e) => {
         this.setState({value: e.target.value});
     }
 
@@ -29,12 +29,12 @@ class AllBooksList extends Component {
                                     <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
                                         <div className="book-shelf-changer">
-                                           <select onChange={this.handleChange} value={book.shelf}>
+                                           <select onChange={this.updateBooks} defaultVlue={book.shelf}>
                                                 <option value="move" disabled>Move to...</option>
-                                                <option value={book.currentlyReading}>Currently Reading</option>
-                                                <option value={book.wantToRead}>Want to Read</option>
-                                                <option value={book.read}>Read</option>
-                                                <option value={book.none}>None</option>
+                                                <option value="currentlyReading">Currently Reading</option>
+                                                <option value="wantToRead">Want to Read</option>
+                                                <option value="read">Read</option>
+                                                <option value="none">None</option>
                                             </select>
                                         </div>
                                     </div>
