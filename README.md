@@ -72,20 +72,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Project design and components description
 
-The project had 'App' component which is the main component .
+The project has 'App' component which is the main component .
 
 The 'App' component list the books on the shelf. The 'BooksList' Component holds the books by shelf.
 
-The 'search' component has a button which when clicke takes user to the search page.
+The 'search' component has a button which when clicked takes user to the search page.
 
 The search page initially loads the books on the shelf.
 
-The search field has ability to search the books .
+The search field has ability to search the books by title or author.
 
 Once searched the books searched by search query is populated by the 'AllBooks' component.
 
-'AllBooks' component have 'Book' component for displaying each book in the search page.
+'AllBooks' component have 'Book' component for displaying each book on the search page.
 
-The books selected by shelf are showed on the main page .
+The books selected by shelf on search page are displayed on the main page within the self category .
+
+If the book is not present on the main page, then the book is updated with the shelf key and then added to the main page.
 
 Empty query or books not found will have empty list displayed on the search page.
