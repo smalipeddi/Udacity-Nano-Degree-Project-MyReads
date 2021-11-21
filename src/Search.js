@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import AllBooksList from './AllBooksList';
 import { Link } from 'react-router-dom';
+import BooksList from './BooksList';
 
+/** This search component is responsible for searching the books and adding them to the books list */
 class Search extends Component {
 
   state = {
@@ -9,23 +11,24 @@ class Search extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() });
+    this.setState({ query: query });
   }
 
   render() {
     const { query } = this.state
     const { books } = this.props
 
-    const searchedBooks =   books.filter(book => {
+    const searchedBooks =  books.filter(book => {
       if (book.title.toLowerCase().includes(query.toLowerCase()))
         return book;
     });
 
-    const showingBooks = (query === '') ? books : searchedBooks();
+    /** get all the books if query is empty else get searched books */
+    const showingBooks = (query === '') ? books : searchedBooks;
 
     return (<div className="search-books">
       <div className="search-books-bar">
-        <Link to="/" onClick="back" ><button className="close-search" >Close</button></Link>
+        <Link to="/" element={<BooksList currentlyReadingBooks={this.state.currentlyReading} wantToReadBooks={this.state.wantToRead} readBooks={this.state.read} books={this.state.books} /> }><button className="close-search" >Close</button></Link>
         <div className="search-books-input-wrapper">
           {/*
                       NOTES: The search from BooksAPI is limited to a particular set of search terms.

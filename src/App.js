@@ -6,51 +6,44 @@ import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import BooksList from './BooksList';
 
-class BooksApp extends React.Component {
+class App extends React.Component {
 
-  state = {
-    books: [],
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
-    showSearchPage: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: []
+    }
   }
 
-  componentDidMount() {
-    // get the list of all books and categorize them based on shelf
+  updateBooksHandler = () => {
     BooksAPI.getAll()
       .then((allBooks) => {
         this.setState(() => ({
           'books': allBooks
         }))
-        const curentlyReadingBooks = allBooks.filter(book => (
-          book.shelf === 'currentlyReading'
-        ));
+      });
+  }
+
+  componentDidMount() {
+    // get the list of all books and categorize them based on shelf - Currently Reading, Want To read and Read
+    BooksAPI.getAll()
+      .then((allBooks) => {
         this.setState(() => ({
-          'currentlyReading': curentlyReadingBooks
-        }));
-        const wantToReadBooks = allBooks.filter(book => (
-          book.shelf === 'wantToRead'
-        ));
-        this.setState(() => ({
-          'wantToRead': wantToReadBooks
-        }));
-        const readBooks = allBooks.filter(book => (
-          book.shelf === 'read'
-        ));
-        this.setState(() => ({
-          'read': readBooks
-        }));
+          'books': allBooks
+        }))
       })
   }
 
   render() {
+    console.log("app props", this.props);
+   
     return (
-      <div className="app">
+         <div className="app">
+         {/* Routes to route to books list page anfd the search page*/}
         <Routes>
-          <Route path="/" element={<BooksList books={this.state.books} />} />
+          <Route path="//*" element={<BooksList updateBooks={this.updateBooksHandler} books={this.state.books} />} />
           <Route path="/search" element={
-            <Search books={this.state.books} onClick={this.state.showSearchPage} />
+            <Search books={this.state.books} />
           } />
         </Routes>
       </div>
@@ -58,4 +51,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default App
