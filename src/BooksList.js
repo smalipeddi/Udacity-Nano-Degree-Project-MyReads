@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI'
 import Search from './Search';
 
 class BooksList extends Component {
 
-    /** UpdateBooks method is used to update the shelf of the selected book when the user changes the shelf */
-	updateBooks = (bookToUpdate, e) => {
-		BooksAPI.update(bookToUpdate, e.target.value).then(result => {
-			this.props.books.map(book => {
-				if (book.id === bookToUpdate.id) {
-					book.shelf = e.target.value
-					console.log(book);
-				}
-			});
-		})
-	}
-
-	render() {
+  	render() {
 
 		return (
 			<div className="list-books">
@@ -35,7 +22,7 @@ class BooksList extends Component {
 											<div className="book-top">
 												<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
 												<div className="book-shelf-changer">
-													<select defaultValue={book.shelf} onChange={(e) => this.updateBooks(book, e)} >
+													<select defaultValue={book.shelf} onChange={(e) => this.props.updateBooks(book, e)} >
 														<option value="move" disabled>Move to...</option>
 														<option value="currentlyReading" >Currently Reading</option>
 														<option value="wantToRead">Want to Read</option>
@@ -64,7 +51,7 @@ class BooksList extends Component {
 											<div className="book-top">
 												<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
 												<div className="book-shelf-changer">
-													<select defaultValue={book.shelf} onChange={(e) => this.updateBooks(book, e)} >
+													<select defaultValue={book.shelf} onChange={(e) => this.props.updateBooks(book, e)} >
 														<option value="move" disabled>Move to...</option>
 														<option value="currentlyReading" >Currently Reading</option>
 														<option value="wantToRead">Want to Read</option>
