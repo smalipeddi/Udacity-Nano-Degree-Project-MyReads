@@ -4,7 +4,7 @@ import Book from './Book';
 /** This component is responsible for displaying all the books on the search page */
 /** It has a Book component as a child */
 class AllBooksList extends Component {
-  
+
     render() {
         return(
     		<div className="list-books-content">
@@ -12,7 +12,7 @@ class AllBooksList extends Component {
                     <div className="bookshelf-books">
                         <ol className="books-grid">
                             {this.props.books.map(book => (
-                               <Book key={book.id} book={book} />
+                               <Book updateBook={this.props.updateBook} key={book.id} book={book} />
                             ))}
                         </ol>
                     </div>
