@@ -34,6 +34,8 @@ class Search extends Component {
       if (result.error === 'empty query') {
         //update books array
         this.setState({ allBooks: [] });
+      } else if(result === undefined) {
+        this.setState({ allBooks: [] });
       } else {
         this.setState({ 'allBooks': result });
       }
