@@ -68,3 +68,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Project design and components description
+
+The project had 'App' component which is the main component .
+
+The 'App' component list the books on the shelf. The 'BooksList' Component holds the books by shelf.
+
+The 'search' component has a button which when clicke takes user to the search page.
+
+The search page initially loads the books on the shelf.
+
+The search field has ability to search the books .
+
+Once searched the books searched by search query is populated by the 'AllBooks' component.
+
+'AllBooks' component have 'Book' component for displaying each book in the search page.
+
+The books selected by shelf are showed on the main page .
+
+Empty query or books not found will have empty list displayed on the search page.
