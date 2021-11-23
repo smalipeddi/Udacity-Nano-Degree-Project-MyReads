@@ -28,11 +28,11 @@ class Search extends Component {
   searchedBooks = (query) => {
     this.setState({ query: query });
     if (query === '') {
-      return this.state.allBooks;
+      this.setState({ allBooks: [] });
     }
     this.setState({ query: query });
     BooksAPI.search(query).then(result => {
-      if (result.error === 'empty query') {
+      if (result && result.error === 'empty query') {
         //update books array
         this.setState({ allBooks: [] });
       } else if(result === undefined) {
