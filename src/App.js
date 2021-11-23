@@ -5,6 +5,7 @@ import Search from './Search';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import BooksList from './BooksList';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
 
@@ -20,7 +21,7 @@ class App extends React.Component {
     BooksAPI.update(bookToUpdate, e.target.value).then(result => {
       // get copy of books  
       let books = [...this.state.books];
-      // find the idex of the book to update shelf
+      // find the index of the book to update shelf
       let index = books.findIndex(el => el.id === bookToUpdate.id);
       // if the books is not already in shelf, then add a new book to the shelf other wise update the shelf 
       if(index !== -1) {
@@ -33,7 +34,8 @@ class App extends React.Component {
         books.push(bookToUpdate);
         this.setState({books});
       }
-    })
+    });
+   
   }
 
   componentDidMount() {
@@ -47,19 +49,23 @@ class App extends React.Component {
   }
 
   render() {
-    
+    const { books } = this.state;
     return (
       <div className="app">
         {/* Routes to route to books list page anfd the search page*/}
         <Routes>
-          <Route path="//*" element={<BooksList updateBook={this.updateBookHandler} books={this.state.books} />} />
+          <Route exact path="//*" element={<BooksList updateBook={this.updateBookHandler} books={books} />} />
           <Route path="/search" element={
-            <Search searchedBooks = {this.searchedBooksHandler} updateBook={this.updateBookHandler} books={this.state.books} />
+            <Search searchedBooks = {this.searchedBooksHandler} updateBook={this.updateBookHandler} books={books} />
           } />
         </Routes>
       </div>
     )
   }
+}
+
+App.propTypes = {
+  books: PropTypes.array
 }
 
 export default App

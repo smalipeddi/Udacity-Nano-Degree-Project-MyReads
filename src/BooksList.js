@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Search from './Search';
+import PropTypes from 'prop-types';
 
 class BooksList extends Component {
 
   	render() {
-
+        const { books , updateBook } = this.props;
+		
 		return (
 			<div className="list-books">
 				<div className="list-books-title">
@@ -16,13 +18,13 @@ class BooksList extends Component {
 						<h2 className="bookshelf-title">Currently Reading</h2>
 						<div className="bookshelf-books">
 							<ol className="books-grid">
-								{this.props.books.map(book => (book.shelf === 'currentlyReading' &&
+								{books.map(book => (book.shelf === 'currentlyReading' &&
 									<li key={book.id}>
 										<div className="book">
 											<div className="book-top">
 												<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
 												<div className="book-shelf-changer">
-													<select defaultValue={book.shelf} onChange={(e) => this.props.updateBook(book, e)} >
+													<select defaultValue={book.shelf} onChange={(e) => updateBook(book, e)} >
 														<option value="move" disabled>Move to...</option>
 														<option value="currentlyReading" >Currently Reading</option>
 														<option value="wantToRead">Want to Read</option>
@@ -45,13 +47,13 @@ class BooksList extends Component {
 						<h2 className="bookshelf-title">Want To Read</h2>
 						<div className="bookshelf-books">
 							<ol className="books-grid">
-								{this.props.books.map(book => (book.shelf === 'wantToRead' &&
+								{books.map(book => (book.shelf === 'wantToRead' &&
 									<li key={book.id}>
 										<div className="book">
 											<div className="book-top">
 												<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
 												<div className="book-shelf-changer">
-													<select defaultValue={book.shelf} onChange={(e) => this.props.updateBook(book, e)} >
+													<select defaultValue={book.shelf} onChange={(e) => updateBook(book, e)} >
 														<option value="move" disabled>Move to...</option>
 														<option value="currentlyReading" >Currently Reading</option>
 														<option value="wantToRead">Want to Read</option>
@@ -74,13 +76,13 @@ class BooksList extends Component {
 						<h2 className="bookshelf-title">Read</h2>
 						<div className="bookshelf-books">
 							<ol className="books-grid">
-								{this.props.books.map(book => (book.shelf === 'read' &&
+								{books.map(book => (book.shelf === 'read' &&
 									<li key={book.id}>
 										<div className="book">
 											<div className="book-top">
 												<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
 												<div className="book-shelf-changer">
-													<select defaultValue={book.shelf} onChange={(e) => this.props.updateBook(book, e)} >
+													<select defaultValue={book.shelf} onChange={(e) => updateBook(book, e)} >
 														<option value="move" disabled>Move to...</option>
 														<option value="currentlyReading" >Currently Reading</option>
 														<option value="wantToRead">Want to Read</option>
@@ -107,7 +109,7 @@ class BooksList extends Component {
 
 				<Routes>
 					<Route path="/search" element={
-						<Search books={this.props.books} />
+						<Search books={books} />
 					} />
 				</Routes>
 			</div>
@@ -115,5 +117,10 @@ class BooksList extends Component {
 
 		)
 	}
+}
+
+BooksList.propTypes = {
+	books: PropTypes.array,
+	updateBook: PropTypes.func
 }
 export default BooksList;

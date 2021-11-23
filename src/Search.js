@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AllBooksList from './AllBooksList';
 import { Link } from 'react-router-dom';
 import BooksList from './BooksList';
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI';
+import PropTypes from 'prop-types';
 
 
 /** This search component is responsible for searching the books and adding them to the books shelf based on what shelf teh user selects */
@@ -43,12 +44,12 @@ class Search extends Component {
   }
 
   render() {
-    const { query } = this.state;
-    const { allBooks } = this.state;
+    const { query, allBooks } = this.state;
+    const { books , updateBook } = this.props;
 
     return (<div className="search-books">
       <div className="search-books-bar">
-        <Link to="/" element={<BooksList books={this.state.books} />}><button className="close-search" >Close</button></Link>
+        <Link to="/" element={<BooksList books={books} />}><button className="close-search" >Close</button></Link>
         <div className="search-books-input-wrapper">
           {/*
                       NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -64,11 +65,16 @@ class Search extends Component {
       <div className="search-books-results">
         <ol className="books-grid"></ol>
         <div className="list-books-content">
-          <AllBooksList updateBook={this.props.updateBook} books={allBooks} />
+          <AllBooksList updateBook={updateBook} books={allBooks} />
         </div>
       </div>
     </div>)
   }
+}
+
+Search.propTypes = {
+  query: PropTypes.string,
+  allBooks: PropTypes.array
 }
 
 export default Search;
