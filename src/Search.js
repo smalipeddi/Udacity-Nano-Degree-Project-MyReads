@@ -38,7 +38,16 @@ class Search extends Component {
       } else if(result === undefined) {
         this.setState({ allBooks: [] });
       } else {
-        this.setState({ 'allBooks': result });
+        const results = result.filter(searchedBook => {
+          if(!this.props.books.includes(searchedBook)) {
+             searchedBook.shelf = 'none';
+             return searchedBook;
+          } else {
+            return searchedBook;
+          } 
+          
+        });
+        this.setState({ 'allBooks': results });
       }
     });
   }
